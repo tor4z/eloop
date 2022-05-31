@@ -25,6 +25,8 @@ public:
         assert(prependableBytes() == kCheapPrepend);
     }
 
+    Buffer(): Buffer(kInitialSize) {}
+
     void swap(Buffer &target)
     {
         buffer_.swap(target.buffer_);

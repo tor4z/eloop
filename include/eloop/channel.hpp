@@ -53,7 +53,7 @@ public:
     {
         return events_ == 0;
     }
-    
+
     unsigned events() const
     {
         return events_;
@@ -104,11 +104,13 @@ public:
         return events_ & EPOLLOUT;
     }
 
-    void handleEvent();
+    void handleEvents();
     void tie(const std::shared_ptr<void>& obj);
 private:
     void update();
     void remove();
+
+    void handleEventsWithGuard();
 
     EventLoop *loop_;
     int fd_;
@@ -119,7 +121,7 @@ private:
     unsigned events_;
     unsigned revents_;
 
-    bool hlandlingEvents_;
+    bool handlingEvents_;
 
     ReadCallback readCallback_;
     WriteCallback writeCallback_;

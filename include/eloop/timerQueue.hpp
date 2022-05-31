@@ -19,7 +19,7 @@ public:
     Timer *addTimer(TimerCallback cb, Timestamp when, Nanosecond interval);
     void cancelTimer(Timer *timer);
 private:
-    using Entry = std::pair<Timestamp, Timer>;
+    using Entry = std::pair<Timestamp, Timer*>;
     using TimerList = std::set<Entry>;
 
     EventLoop *loop_;
