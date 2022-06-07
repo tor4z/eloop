@@ -1,4 +1,5 @@
 #include <cassert>
+#include <mutex>
 #include <sys/eventfd.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -119,6 +120,17 @@ void EventLoop::queueInLoop(const Task &task)
         wakeup();
 }
 
+
+void EventLoop::queueInLoop(Task &&task)
+{
+    {
+        std::lock_guard<std::mutex> gard(mutex_);
+        pendingTasks_.push_back(std::move(task));
+    }
+    if(!isInLoopThread() || doingPendingTasks_)
+        wakeup();
+}
+
 void EventLoop::wakeup()
 {
     uint64_t one = 1;
@@ -189,10 +201,6 @@ void EventLoop::assertNotInLoopThread()
     assert(!isInLoopThread());
 }
 
-bool EventLoop::isInLoopThread()
-{
-    return tid_ == get_tid();
-}
 
 void EventLoop::doPendingTasks()
 {

@@ -31,7 +31,7 @@ public:
 private:
     bool listening_;
     EventLoop *loop_;
-    const int acceptFd;
+    const int acceptFd_;
     Channel acceptChannel_;
     InetAddress local_;
     NewConnectionCallback newConnectionCallback_;

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdio.h>
 
 namespace eloop
 {
@@ -39,30 +40,30 @@ void log_sys_(
 #define LOG_BASE_(level, to_abort, fmt, ...)\
     log_base_(__FILE__, __LINE__, level, to_abort, fmt, ##__VA_ARGS__)
 #define LOG_SYS_(to_abort, fmt, ...)\
-    log_sys_(__FILE__, __LINE__, to_abort, fmt, ##__VA_ARGS__);
+    log_sys_(__FILE__, __LINE__, to_abort, fmt, ##__VA_ARGS__)
 
 // public
 #define TRACE(fmt, ...)                                        \
 do {                                                           \
-    if(logLevel < LOG_LEVEL_TRACE)                             \
+    if(logLevel <= LOG_LEVEL_TRACE)                            \
         LOG_BASE_(LOG_LEVEL_TRACE, false, fmt, ##__VA_ARGS__); \
 } while (false)
 
 #define DEBUG(fmt, ...)                                        \
 do {                                                           \
-    if(logLevel < LOG_LEVEL_DEBUG)                             \
+    if(logLevel <= LOG_LEVEL_DEBUG)                            \
         LOG_BASE_(LOG_LEVEL_DEBUG, false, fmt, ##__VA_ARGS__); \
 } while(false)
 
 #define INFO(fmt, ...)                                        \
 do {                                                          \
-    if(logLevel < LOG_LEVEL_INFO)                             \
+    if(logLevel <= LOG_LEVEL_INFO)                            \
         LOG_BASE_(LOG_LEVEL_INFO, false, fmt, ##__VA_ARGS__); \
 } while(false)
 
 #define WARN(fmt, ...)                                        \
 do {                                                          \
-    if(logLevel < LOG_LEVEL_WARN)                             \
+    if(logLevel <= LOG_LEVEL_WARN)                            \
         LOG_BASE_(LOG_LEVEL_WARN, false, fmt, ##__VA_ARGS__); \
 } while(false)
 

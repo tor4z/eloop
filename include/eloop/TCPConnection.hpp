@@ -1,6 +1,7 @@
 #pragma once
 
 #include <any>
+#include <string_view>
 #include "eloop/noncopyable.hpp"
 #include "eloop/buffer.hpp"
 #include "eloop/callback.hpp"
